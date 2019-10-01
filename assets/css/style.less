@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,900&display=swap');
+
+@mobile: ~" (max-width: 979px)";
+@default: #193a6f;
+@text: #6e6e6e;
+
+.transition(@type: all, @time: 0.1s, @ease: ease){
+    -webkit-transition: @type @time @ease;
+    -moz-transition: @type @time @ease;
+    -o-transition: @type @time @ease;
+    transition: @type @time @ease;
+}
+
+menu, ul{
+	list-style: none;
+}
+
+*{
+	font-family: 'Lato', sans-serif;
+}
+
+.ct-header{
+	background: url(../img/bg-header.jpg);
+	height: 100vh;
+    display: flex;
+	flex-flow: column;
+	position: relative;
+
+	header{
+		background-color: rgba(1, 10, 43, 0.88);
+		padding: 57px;
+
+		>div{
+			display: flex;
+			justify-content: space-between;
+
+			.logo{
+				width: 194px;
+				float: left;
+
+				img{
+					width: 100%;
+				}
+			}
+
+			menu{
+				float: right;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				width: 754px;
+				margin: 0;
+				padding: 0;
+
+				li{
+					a{
+						color: #fff;
+						font-weight: 100;
+						font-size: 22px;
+
+						img{
+							width: 25px;
+						}
+
+						&:last-child{
+							img{
+								margin-left: 15px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	section{
+		color: #fff;
+		font-size: 48px;
+		padding: 0 80px;
+		font-weight: 100;
+
+		position: relative;
+		top: calc(~'50% - 82px');
+		transform: translateY(-50%);
+	}
+}
+
+.ct-parallax{
+    display: flex;
+
+     .parallax {
+        background-image: url(../img/parallax.jpg);
+        background-size: 100%;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: 0 0px;
+        margin: 140px 0;
+        position: relative;
+    
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .conheca{
+        h3{
+            font-size: 46px;
+            color: @default;
+            font-weight: 300;
+        }
+
+        p{
+
+        }
+    }
+}
