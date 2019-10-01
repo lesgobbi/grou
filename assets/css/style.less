@@ -3,6 +3,7 @@
 @mobile: ~" (max-width: 979px)";
 @default: #193a6f;
 @text: #6e6e6e;
+@highLight: #f54949;
 
 .transition(@type: all, @time: 0.1s, @ease: ease){
     -webkit-transition: @type @time @ease;
@@ -56,7 +57,30 @@ menu, ul{
 					a{
 						color: #fff;
 						font-weight: 100;
-						font-size: 22px;
+                        font-size: 22px;
+                        border-left: 2px solid transparent;
+                        padding-left: 8px;
+                        position: relative;
+
+                        &:after{
+                            content: '';
+                            position: absolute;
+                            height: 0;
+                            bottom: 0;
+                            width: 2px;
+                            background-color: @highLight;
+                            opacity: 0;
+                            left: 0;
+                            .transition(all, 0.2s, ease-out);
+                        }
+                        
+                        &:hover{
+                            text-decoration: none;
+                            &:after{
+                                height: 100%;
+                                opacity: 1;
+                            }
+                        }
 
 						img{
 							width: 25px;
@@ -67,7 +91,15 @@ menu, ul{
 								margin-left: 15px;
 							}
 						}
-					}
+                    }
+                    
+                    &:last-child{
+                        a:hover{
+                            &:after{
+                                display: none;
+                            }
+                        }
+                    }
 				}
 			}
 		}
@@ -104,14 +136,29 @@ menu, ul{
     }
 
     .conheca{
+        margin: 140px 0;
+
         h3{
             font-size: 46px;
             color: @default;
             font-weight: 300;
+            margin-bottom: 20px;
         }
 
         p{
+            font-weight: 300;
+            font-size: 22px;
+            color: @text;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
 
+        a{
+            background-color: @default;
+            color: #fff;
+            padding: 6px 15px;
+            font-size: 18px;
+            border-radius: 10px;
         }
     }
 }

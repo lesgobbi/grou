@@ -41,12 +41,39 @@ ul {
   color: #fff;
   font-weight: 100;
   font-size: 22px;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  position: relative;
+}
+.ct-header header > div menu li a:after {
+  content: '';
+  position: absolute;
+  height: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #f54949;
+  opacity: 0;
+  left: 0;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+.ct-header header > div menu li a:hover {
+  text-decoration: none;
+}
+.ct-header header > div menu li a:hover:after {
+  height: 100%;
+  opacity: 1;
 }
 .ct-header header > div menu li a img {
   width: 25px;
 }
 .ct-header header > div menu li a:last-child img {
   margin-left: 15px;
+}
+.ct-header header > div menu li:last-child a:hover:after {
+  display: none;
 }
 .ct-header section {
   color: #fff;
@@ -73,8 +100,26 @@ ul {
   height: 100%;
   width: 100%;
 }
+.ct-parallax .conheca {
+  margin: 140px 0;
+}
 .ct-parallax .conheca h3 {
   font-size: 46px;
   color: #193a6f;
   font-weight: 300;
+  margin-bottom: 20px;
+}
+.ct-parallax .conheca p {
+  font-weight: 300;
+  font-size: 22px;
+  color: #6e6e6e;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+.ct-parallax .conheca a {
+  background-color: #193a6f;
+  color: #fff;
+  padding: 6px 15px;
+  font-size: 18px;
+  border-radius: 10px;
 }
