@@ -6,6 +6,7 @@
     <title>Grou</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://lesgobbi.github.io/cdn/css/fotorama.css">
+    <link rel="stylesheet" href="https://lesgobbi.github.io/cdn/aos/aos.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -21,7 +22,7 @@
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Para Você</a></li>
                     <li><a href="#">Para sua Empresa</a></li>
-                    <li><a href="#">Contato</a></li>
+                    <li><a class="contato" href="#">Contato</a></li>
                     <li>
                         <a><img src="assets/img/fb.png" /></a>
                         <a><img src="assets/img/it.png" /></a>
@@ -57,9 +58,9 @@
 
     <section class="container-fluid ct-bullets">
         <div class="container">
-            <span class="col-4">Vida<br>Empresarial</span>
-            <span class="col-4">Seguro<br>Saúde</span>
-            <span class="col-4">Consórcio<br>Imobiliário</span>
+            <span class="col-4" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850">Vida<br>Empresarial</span>
+            <span class="col-4"data-aos="fade-top" data-aos-anchor-placement="top" data-aos-duration="850">Seguro<br>Saúde</span>
+            <span class="col-4" data-aos="fade-left" data-aos-anchor-placement="top" data-aos-duration="850">Consórcio<br>Imobiliário</span>
         </div>
     </section>
 
@@ -128,7 +129,7 @@
 
     <section class="container-fluid especialista">
         <div class="container">
-            <img src="assets/img/especialista.png"/>
+            <img src="assets/img/especialista.png" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850"/>
             <div class="col">
                 <h3>DICA DO ESPECIALISTA: Seguro Viagem</h3>
 
@@ -168,16 +169,16 @@
         <div class="container">
             <form action="">
                 <div class="half-input">
-                    <input type="text" name="nome" placeholder="Nome"/>
-                    <input type="text" name="telefone" placeholder="Telefone"/>
+                    <input type="text" name="nome" placeholder="Nome" autocomplete="nome"/>
+                    <input type="text" name="telefone" placeholder="Telefone" autocomplete="telefone"/>
                 </div>
 
-                <input type="email" name="email" placeholder="E-mail"/>
+                <input type="email" name="email" placeholder="E-mail" autocomplete="email"/>
 
                 <input type="submit" name="sendContato" value="Solicitar contato"/>
             </form>
 
-            <div class="buttons-bottom">
+            <div class="buttons-bottom" data-aos="fade-left" data-aos-anchor-placement="top" data-aos-duration="450">
                 <a class="wa" href="https://api.whatsapp.com/send?phone=5511989539654&text=Ol%C3%A1!%20pode%20me%20ajudar?" target="_blank">
                     <img src="assets/img/wa.png" />
                     11 98953 9654
@@ -193,6 +194,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://lesgobbi.github.io/cdn/js/fotorama.js"></script>
+    <script src="https://lesgobbi.github.io/cdn/aos/aos.js"></script>
     <script src="assets/js/scripts.js"></script>
 </body>
 
