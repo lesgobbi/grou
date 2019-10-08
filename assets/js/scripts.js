@@ -3,13 +3,13 @@ $(document).ready(function() {
 
     var scroll = $(window).scrollTop();
 
-    if($('.parallax').length) {
+    if ($('.parallax').length) {
         var top = $('.parallax').offset().top;
         var height = $('.parallax').height();
         $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');
     }
 
-    $('.contato').on('click', function(){
+    $('.contato').on('click', function() {
         $('html, body').animate({
             scrollTop: $('footer').offset().top
         }, 1000);
@@ -25,7 +25,7 @@ $(document).ready(function() {
 $(window).scroll(function() {
     var scroll = $(window).scrollTop();
 
-    if($('.parallax').length) {
+    if ($('.parallax').length) {
         var top = $('.parallax').offset().top;
         var height = $('.parallax').height();
         $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');

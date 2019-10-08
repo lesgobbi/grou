@@ -1,0 +1,1 @@
+<?php header('Location: ?exe=area-restrita/lista');
