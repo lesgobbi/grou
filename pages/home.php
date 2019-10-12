@@ -1,15 +1,20 @@
 <div class="ct-header">
-    <div class="background" style="background-image: url(assets/img/bg-home.jpg);"></div>
+    <?php
+        $readHome = $read;
+        $readHome->ExeRead('posts', "WHERE post_id = 1");
+        $home = $readHome->getResult()[0];
+    ?>
+    <div class="background" style="background-image: url(<?= HOME.'/tim.php?src='.HOME.'/uploads/'.$home['post_cover'].'&w=1920&h=945'; ?>);"></div>
+
     <header>
         <div class="container">
-            <a href="<?= HOME; ?>" class="logo"><img src="assets/img/logo.png" /></a>
+            <a href="<?= HOME; ?>" class="logo"><img src="<?= HOME; ?>/assets/img/logo.png" /></a>
             <menu><?php include('includes/menu.php');?></menu>            
         </div>
     </header>
 
     <section class="container">
-        Cada necessidade, precisa<br> da cobertura certa.<br>
-        <strong>Vamos Descobrir a sua?</strong>
+        <?= $home['post_chamada']; ?>
     </section>
 
 </div>
@@ -22,13 +27,19 @@
     </div>
 
     <div class="col-6 conheca">
-        <h3>Conheça a GROU</h3>
+        <?php
+        $readSobre = $read;
+        $readSobre->ExeRead('posts', "WHERE post_id = 3");
+        $sobre = $readSobre->getResult()[0];
+        ?>
+
+        <h3><?= $sobre['post_title'];?></h3>
 
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro sequi neque, doloremque laborum distinctio minus repellendus itaque. Praesentium consequuntur alias labore, maiores blanditiis dolore harum quasi officiis placeat voluptatum tempora.<br>                Dicta totam iusto corrupti eveniet quidem quisquam
+            <?= Check::Words($sobre['post_content'], 52);?>
         </p>
 
-        <a href="#">Saiba mais</a>
+        <a href="<?= HOME; ?>/sobre">Saiba mais</a>
     </div>
 </section>
 
@@ -40,77 +51,75 @@
     </div>
 </section>
 
-<section class="container solucoes">
-    <h2>Soluções para todas as necessidades<br>(sua e da sua empresa).</h2>
+<?php
+$readDestaques = $read;
+$readDestaques->ExeRead('posts', "WHERE (post_category = 2 OR post_category = 3) AND post_featured = 1 ORDER BY post_date DESC LIMIT 4");
+if($readDestaques->getRowCount()):
+    $destaques = $readDestaques->getResult();
+?>
+    <section class="container solucoes">
+        <h2>Soluções para todas as necessidades<br>(sua e da sua empresa).</h2>
 
-    <div class="container-fluid">
-        <div class="col">
-            <span>Renda Fixa</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet eius inventore necessitatibus nobis quae rerum voluptatibus! Aut, commodi consequuntur, eaque, ex facere magni maxime nihil omnis quaerat quisquam reprehenderit vero!</p>
-            <a href="#">Saiba mais</a>
+        <div class="container-fluid">
+            <?php foreach($destaques as $destaque): ?>
+                <div class="col">
+                    <span><?= $destaque['post_title']; ?></span>
+                    <p><?= Check::Words($destaque['post_content'], 35); ?></p>
+                    <a href="<?= HOME; ?>/<?= $destaque['post_name']; ?>">Saiba mais</a>
+                </div>
+            <?php endforeach; ?>
         </div>
+    </section>
+<?php endif; ?>
 
-        <div class="col">
-            <span>Fundos de investimento</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet eius inventore necessitatibus nobis quae rerum voluptatibus! Aut, commodi consequuntur, eaque, ex facere magni maxime nihil omnis quaerat quisquam reprehenderit vero!</p>
-            <a href="#">Saiba mais</a>
-        </div>
-
-        <div class="col">
-            <span>Vida e Previdência</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet eius inventore necessitatibus nobis quae rerum voluptatibus! Aut, commodi consequuntur, eaque, ex facere magni maxime nihil omnis quaerat quisquam reprehenderit vero!</p>
-            <a href="#">Saiba mais</a>
-        </div>
-
-        <div class="col">
-            <span>Renda Variável</span>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet eius inventore necessitatibus nobis quae rerum voluptatibus! Aut, commodi consequuntur, eaque, ex facere magni maxime nihil omnis quaerat quisquam reprehenderit vero!</p>
-            <a href="#">Saiba mais</a>
-        </div>
-    </div>
-</section>
-
+<?php
+$readClipping = $read;
+$readClipping->ExeRead('posts', "WHERE post_category = 4 ORDER BY post_id DESC");
+if($readClipping->getRowCount()):
+$clippings = $readClipping->getResult();
+?>
 <section class="container por-dentro">
     <h2>Fique por dentro</h2>
 
     <div class="container-fluid">
-        <div class="item col">
-            <img src="assets/img/fake-img.jpg" />
-            <div class="content">
-                <h4>Auto</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, atque consectetur dolore explicabo nobis nostrum repellat? Ad aliquam amet at dolore eaque, laudantium, magnam omnis quaerat rem, saepe tempora voluptatem?</p>
-                <a href="#">SAIBA MAIS</a>
-            </div>
-        </div>
+        <?php
+            foreach($clippings as $clipping):
+        ?>
+            <div class="item col-4">
+                <?php
+                    if($clipping['post_cover']):
+                        $bg = HOME.'/tim.php?src=uploads/'.$clipping['post_cover'].'&w=600;';
+                    else:
+                        $bg = $clipping['post_cover_featured'];
+                    endif;
+                ?>
 
-        <div class="item col">
-            <img src="assets/img/fake-img.jpg" />
-            <div class="content">
-                <h4>Casa</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, atque consectetur dolore explicabo nobis nostrum repellat? Ad aliquam amet at dolore eaque, laudantium, magnam omnis quaerat rem, saepe tempora voluptatem?</p>
-                <a href="#">SAIBA MAIS</a>
-            </div>
-        </div>
+                <div class="cover" style="background-image: url(<?= $bg; ?>);"></div>
 
-        <div class="item col">
-            <img src="assets/img/fake-img.jpg" />
-            <div class="content">
-                <h4>Empresa</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, atque consectetur dolore explicabo nobis nostrum repellat? Ad aliquam amet at dolore eaque, laudantium, magnam omnis quaerat rem, saepe tempora voluptatem?</p>
-                <a href="#">SAIBA MAIS</a>
+                <div class="content">
+                    <h4><?= $clipping['post_title']; ?></h4>
+                    <p><?= Check::Words($clipping['post_content'], 34) ?></p>
+                    <a target="_blank" href="<?= $clipping['post_link']; ?>">SAIBA MAIS</a>
+                </div>
             </div>
-        </div>
+        <?php endforeach; ?>
+
     </div>
 </section>
+<?php endif; ?>
 
 <section class="container-fluid especialista">
     <div class="container">
-        <img src="assets/img/especialista.png" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850" />
-        <div class="col">
-            <h3>DICA DO ESPECIALISTA: Seguro Viagem</h3>
+        <?php
+        $readEspecialista = $read;
+        $readEspecialista->ExeRead('posts', "WHERE post_id = 2");
+        $especialista = $readEspecialista->getResult()[0];
+        ?>
 
-            <p>Ab consequuntur cupiditate delectus deleniti deserunt dicta, dolor est explicabo facere fuga fugiat id iste necessitatibus, neque perferendis, quaerat quo repellendus repudiandae?<br>Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit. Accusamus aperiam assumenda blanditiis consequuntur deserunt, error eum illo illum in molestias nulla perspiciatis quibusdam quo repudiandae sapiente sequi, tempore ut voluptatem.</p>
+        <img class="col-4" src="<?= HOME.'/tim.php?src='.HOME.'/uploads/'.$especialista['post_cover'].'&w=600&h=600'; ?>" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850" />
+        <div class="col">
+            <h3><?= $especialista['post_chamada'];?>: <?= $especialista['post_title'];?></h3>
+            <p><?= $especialista['post_content'];?></p>
         </div>
     </div>
 </section>
@@ -121,21 +130,21 @@
 
         <div class="fotorama" data-width="100%" data-height="100" data-nav="false">
             <div class="logos-container">
-                <img src="assets/img/logo1.jpg" />
-                <img src="assets/img/logo2.jpg" />
-                <img src="assets/img/logo10.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo1.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo2.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo10.jpg" />
             </div>
 
             <div class="logos-container">
-                <img src="assets/img/logo4.jpg" />
-                <img src="assets/img/logo5.jpg" />
-                <img src="assets/img/logo6.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo4.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo5.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo6.jpg" />
             </div>
 
             <div class="logos-container">
-                <img src="assets/img/logo7.jpg" />
-                <img src="assets/img/logo8.jpg" />
-                <img src="assets/img/logo9.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo7.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo8.jpg" />
+                <img src="<?= HOME; ?>/assets/img/logo9.jpg" />
             </div>
 
         </div>

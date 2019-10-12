@@ -1,14 +1,14 @@
 <div class="row">
     <div class="col-xs-12">
-        <h3>Páginas</h3>
+        <h3>Clippings</h3>
     </div>
 </div>
 
 <ol class="breadcrumb icon-home icon-angle-right">
-    <li class="active">Páginas</li>
+    <li class="active">Clippings</li>
 </ol>
 
-<a href="painel.php?exe=posts/create" class="btn btn-primary m-r-10 m-b-10">Cadastrar Nova Página</a>
+<a href="painel.php?exe=clipping/create" class="btn btn-primary m-r-10 m-b-10">Cadastrar Novo Clipping</a>
 
 <?php
 $empty = filter_input(INPUT_GET, 'empty', FILTER_VALIDATE_BOOLEAN);
@@ -36,7 +36,7 @@ if ($action):
 endif;
 
 $readPosts = new Read;
-$readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER BY post_date DESC");
+$readPosts->ExeRead("posts", "WHERE post_category = 4 ORDER BY post_order ASC");
 ?>
 
 <div class="row m-b-20">
@@ -47,7 +47,6 @@ $readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER
                     <th width="50" data-sortable="false" data-sorted="false" id="unsort"></th>
                     <th width="14%" data-sortable="true" data-sorted="true">Título</th>
                     <th>Conteúdo</th>
-                    <th>Destaque</th>
                     <th width="100" data-sortable="false">Ações</th>
                 </tr>
             </thead>
@@ -56,15 +55,22 @@ $readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER
                 if ($readPosts->getResult()):
                     foreach ($readPosts->getResult() as $post):
                         extract($post);
+                        $status = (!$post_status ? 'style="background: #fffed8"' : '');
                         ?>
                         <tr>
-                            <td class="rounded-img"><span style="display: none;"><?= Check::Words($post_title, 10) ?></span><?= $post_cover ? Check::Image('uploads/' . $post_cover, $post_title, 70, 70) : ''; ?></td>
+                            <td class="rounded-img">
+                                <span style="display: none;"><?= Check::Words($post_title, 10) ?></span>
+                                <?php if($post_cover): ?>
+                                    <?= Check::Image('uploads/' . $post_cover, $post_title, 70, 70); ?>
+                                <?php else: ?>
+                                    <img style="width: 70px; height: 70px;" src="<?= $post_cover_featured; ?>">
+                                <?php endif; ?>
+                            </td>
                             <td style="vertical-align: middle;"><?= Check::Words($post_title, 10) ?></td>
                             <td style="vertical-align: middle;"><?= Check::Words(strip_tags($post_content), 40); ?></td>
-                            <td style="vertical-align: middle;"><?= $post_featured ? 'sim' : 'não'; ?></td>
                             <td style="vertical-align: middle; min-width: 80px;">
-                                <a href="painel.php?exe=posts/update&postid=<?= $post_id; ?>" class="btn btn-primary btn-circle m-r-5" title="Editar" data-toggle="tooltip" data-placement="top" style="height: 28px; "><i class="fa fa-edit"></i></a>
-                                <a href="painel.php?exe=posts/posts&post=<?= $post_id; ?>&action=delete" class="btn btn-danger btn-circle m-r-5" title="Remover" data-toggle="tooltip" data-placement="top" style="height: 28px;"><i class="fa fa-trash"></i></a>
+                                <a href="painel.php?exe=clipping/update&postid=<?= $post_id; ?>" class="btn btn-primary btn-circle m-r-5" title="Editar" data-toggle="tooltip" data-placement="top" style="height: 28px; "><i class="fa fa-edit"></i></a>
+                                <a href="painel.php?exe=clipping/clipping&post=<?= $post_id; ?>&action=delete" class="btn btn-danger btn-circle m-r-5" title="Remover" data-toggle="tooltip" data-placement="top" style="height: 28px;"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
 

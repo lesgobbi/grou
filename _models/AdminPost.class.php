@@ -27,8 +27,16 @@ class AdminPost {
             unset($Data['post_cover']);
         endif;
 
+        if (empty($Data['post_cover_featured'])):
+            unset($Data['post_cover_featured']);
+        endif;
+
         if (empty($Data['post_content'])):
             unset($Data['post_content']);
+        endif;
+
+        if (empty($Data['post_chamada'])):
+            unset($Data['post_chamada']);
         endif;
 
         $this->Data = $Data;
@@ -67,12 +75,24 @@ class AdminPost {
             unset($Data['post_cover']);
         endif;
 
+        if (empty($Data['post_cover_featured'])):
+            unset($Data['post_cover_featured']);
+        endif;
+
         if (empty($Data['post_content'])):
             unset($Data['post_content']);
         endif;
 
+        if (empty($Data['post_chamada'])):
+            unset($Data['post_chamada']);
+        endif;
+
         if (empty($Data['post_subtitle'])):
             unset($Data['post_subtitle']);
+        endif;
+
+        if (empty($Data['post_featured'])):
+            unset($Data['post_featured']);
         endif;
 
         $this->Data = $Data;
@@ -104,6 +124,7 @@ class AdminPost {
                 $this->Data['post_cover'] = $this->Data['post_cover'] ? $this->Data['post_cover'] : null;
             endif;
 
+
             $this->Update();
         endif;
     }
@@ -124,6 +145,7 @@ class AdminPost {
             $this->Result = false;
         else:
             $PostDelete = $ReadPost->getResult()[0];
+
             if ($PostDelete['post_cover'] && file_exists(UPLOAD_ROOT.'/uploads/' . $PostDelete['post_cover']) && !is_dir(UPLOAD_ROOT.'/uploads/' . $PostDelete['post_cover'])):
                 unlink(UPLOAD_ROOT.'/uploads/' . $PostDelete['post_cover']);
             endif;
@@ -134,6 +156,12 @@ class AdminPost {
 
             $deleta = new Delete;
             $deleta->ExeDelete(self::Entity, "WHERE post_id = :postid", "postid={$this->Post}");
+
+            $readForm = new Read;
+            $readForm->ExeRead('forms', "WHERE form_post = :postid", "postid={$this->Post}");
+            if($readForm->getRowCount()):
+                $deleta->ExeDelete('forms', "WHERE form_post = :postid", "postid={$this->Post}");
+            endif;
 
             $this->gbRemoveByPost();
 
@@ -253,15 +281,31 @@ class AdminPost {
             $Content = $this->Data['post_content'];
         endif;
 
+        if (isset($this->Data['post_cover_featured'])):
+            $Cover2 = $this->Data['post_cover_featured'];
+        endif;
+
+        if (isset($this->Data['post_chamada'])):
+            $Chamada = $this->Data['post_chamada'];
+        endif;
+
+        if (isset($this->Data['post_cover_featured']) && empty($this->Data['post_cover_featured'])):
+            $Cover2 = null;
+        endif;
+
         if (isset($this->Data['post_content']) && empty($this->Data['post_content'])):
             $Content = null;
+        endif;
+
+        if (isset($this->Data['post_chamada']) && empty($this->Data['post_chamada'])):
+            $Chamada = null;
         endif;
 
         if (isset($this->Data['post_subtitle'])):
             $SubTitle = $this->Data['post_subtitle'];
         endif;
 
-        unset($this->Data['post_cover'], $this->Data['post_content'], $this->Data['post_subtitle']);
+        unset($this->Data['post_cover'], $this->Data['post_content'], $this->Data['post_subtitle'], $this->Data['post_chamada']);
 
         $this->Data = array_map('strip_tags', $this->Data);
         $this->Data = array_map('trim', $this->Data);
@@ -273,10 +317,22 @@ class AdminPost {
             $this->Data['post_cover'] = $Cover;
         endif;
 
+        if (isset($Cover2)):
+            $this->Data['post_cover_featured'] = $Cover2;
+        else:
+            $this->Data['post_cover_featured'] = null;
+        endif;
+
         if (isset($Content)):
             $this->Data['post_content'] = $Content;
         else:
             $this->Data['post_content'] = null;
+        endif;
+
+        if (isset($Chamada)):
+            $this->Data['post_chamada'] = $Chamada;
+        else:
+            $this->Data['post_chamada'] = null;
         endif;
 
         if (isset($SubTitle)):

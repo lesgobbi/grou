@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-xs-12">
-        <h3>Cadastrar Página</h3>
+        <h3>Cadastrar Clipping</h3>
     </div>
 </div>
 
 <ol class="breadcrumb icon-home icon-angle-right">
-    <li><a href="?exe=posts/posts">Páginas</a></li>
-    <li class="active">Nova Página</li>
+    <li><a href="?exe=clipping/clipping">Clippings</a></li>
+    <li class="active">Novo Clipping</li>
 </ol>
 
 <?php
@@ -20,26 +20,23 @@ if (isset($post) && $post['SendPostForm']):
     $cadastra->ExeCreate($post);
 
     if ($cadastra->getResult()):
-        header('Location: painel.php?exe=posts/update&create=true&postid=' . $cadastra->getResult());
+        header('Location: painel.php?exe=clipping/update&create=true&postid=' . $cadastra->getResult());
     else:
         Notification($cadastra->getError()[0], $cadastra->getError()[1]);
     endif;
 endif;
-
-
 ?>
 
 <div class="row m-b-40">
     <div class="col-xs-12 col-xl-6">
         <div class="row">
-
             <div class="col-xs-12 col-xl-12">
                 <fieldset class="form-group m-b-20 croppie-ct">
                     <label>Imagem de Capa</label>
 
                     <div class="upload-container">
                         <div class="actions">
-                            <a class="btn btn-primary m-r-10 m-b-10 file-btn" id="img-cover" data-width="1920" data-height="945">
+                            <a class="btn btn-primary m-r-10 m-b-10 file-btn" id="img-cover" data-width="600" data-height="375">
                                 <span>Upload</span>
                                 <input type="file" id="upload" value="Choose a file" accept="image/*" />
                             </a>
@@ -55,53 +52,42 @@ endif;
         <form name="form-cad" method="post">
             <input type="hidden" name="post_date" value="<?= date('d/m/Y H:i:s'); ?>" />
             <input type="hidden" name="post_cover" id="post_cover"/>
-            <div class="row">                
+            <input type="hidden" name="post_category" value="4"/>
+            <div class="row">
                 <div class="col-xs-12 col-xl-12">
-                    <fieldset class="form-group m-b-20">
-                        <label for="post_chamada">Chamada</label>
-                        <textarea name="post_chamada" class="post_txt" class="form-control" rows="4"><?php if (isset($post['post_chamada'])) echo $post['post_chamada']; ?></textarea>
-                    </fieldset>
-
                     <div class="form-group floating-labels">
                         <label for="post_title">Título</label>
                         <input id="post_title" autocomplete="off" type="text" name="post_title" value="<?php if (isset($post['post_title'])) echo $post['post_title']; ?>" required>
                         <p class="error-block"></p>
                     </div>
                 </div>
-                                
+
+                <div class="col-xs-12 col-xl-12">
+                    <div class="form-group floating-labels">
+                        <label for="post_url">URL imagem</label>
+                        <input id="post_url" autocomplete="off" type="text" name="post_cover_featured" value="<?php if (isset($post['post_cover_featured'])) echo $post['post_cover_featured']; ?>">
+                        <p class="error-block"></p>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-xl-12">
+                    <div class="form-group floating-labels">
+                        <label for="post_url">Link</label>
+                        <input id="post_url" autocomplete="off" type="text" name="post_link" value="<?php if (isset($post['post_link'])) echo $post['post_link']; ?>">
+                        <p class="error-block"></p>
+                    </div>
+                </div>
+
                 <div class="col-xs-12 col-xl-12">
                     <fieldset class="form-group m-b-20">
                         <label for="post_content">Conteúdo</label>
                         <textarea name="post_content" id="post_content" class="form-control" rows="4"><?php if (isset($post['post_content'])) echo $post['post_content']; ?></textarea>
                     </fieldset>
-
-                    <fieldset class="form-group">
-                        <label>Categoria</label>
-                        <select class="chosen-select" name="post_category" data-placeholder="Selecione a Categoria..." required>
-                            <option></option>
-                            <?php
-                                $readCat = new Read;
-                                $readCat->ExeRead("categories", "ORDER BY category_title ASC");
-                                if ($readCat->getRowCount() >= 1):
-                                    echo "<optgroup label='{$ses['category_title']}'>";
-                                        foreach ($readCat->getResult() as $cat):
-                                            echo "<option ";
-                                            if (isset($post['post_category']) && $post['post_category'] == $cat['category_id']):
-                                                echo "selected=\"selected\" ";
-                                            endif;
-                                            echo "value=\"{$cat['category_id']}\">{$cat['category_title']} </option>";
-                                        endforeach;
-                                    echo "</optgroup>";
-                                endif;
-                        ?>
-                        </select>
-                        <div class="help-block with-errors"></div>
-                    </fieldset>
                 </div>
             </div>
             
             <div class="form-group">
-                <input type="submit" class="btn btn-primary m-r-10 m-b-10" value="Cadastrar Página" name="SendPostForm"/>
+                <input type="submit" class="btn btn-primary m-r-10 m-b-10" value="Cadastrar Clipping" name="SendPostForm"/>
             </div>
         </form>
     </div>

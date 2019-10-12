@@ -1,13 +1,8 @@
 <div class="row">
     <div class="col-xs-12">
-        <h3>Atualizar Página</h3>
+        <h3>Atualizar</h3>
     </div>
 </div>
-
-<ol class="breadcrumb icon-home icon-angle-right">
-    <li><a href="?exe=posts/posts">Páginas</a></li>
-    <li class="active">Atualizar Página</li>
-</ol>
 
 <?php
 $post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -20,6 +15,7 @@ $form = filter_input(INPUT_GET, 'form', FILTER_VALIDATE_BOOLEAN);
 $aform = filter_input(INPUT_GET, 'aform', FILTER_VALIDATE_BOOLEAN);
 
 require('../_models/AdminBullets.class.php');
+require('../_models/AdminPost.class.php');
 
 if (isset($bulletId)):
     $bulletDelete = new AdminBullets;
@@ -28,7 +24,7 @@ if (isset($bulletId)):
 endif;
 
 if (isset($post) && isset($post['SendPostFormNew'])):
-    
+
     unset($post['SendPostFormNew']);
 
     $cadastra = new AdminBullets;
@@ -49,12 +45,16 @@ elseif (isset($post) && isset($post['SendPostFormAlt'])):
     Notification($update->getError()[0], $update->getError()[1]);
 endif;
 
-require('../_models/AdminPost.class.php');
-
 if ($action == 'true'):
     $postUpdate = new AdminPost;
     $postUpdate->ExeFeatured($postid, 1);
-    Notification("O Post foi atualizado <strong>Em Destaque</strong>, favor fazer upload da imagem em destaque", ACCEPT);
+    Notification("O Página foi colocada em <strong>Destaque na home</strong>", ACCEPT);
+endif;
+
+if ($action == 'false'):
+    $postUpdate = new AdminPost;
+    $postUpdate->ExeFeatured($postid, 0);
+    Notification("O Página foi tirada de destaque na home</strong>", ACCEPT);
 endif;
 
 if ($multidel):
@@ -67,6 +67,11 @@ endif;
 
 if ($aform):
     Notification("Formulário atualizado com sucesso! Para alterá-lo clique no botão <strong>Editar Formulário</strong>", ACCEPT);
+endif;
+
+$checkCreate = filter_input(INPUT_GET, 'create', FILTER_VALIDATE_BOOLEAN);
+if ($checkCreate && empty($cadastra)):
+    Notification("O post <b>{$post['post_title']}</b> foi cadastrado com sucesso no sistema!", ACCEPT);
 endif;
 
 if (isset($post) && isset($post['SendPostForm'])):
@@ -108,11 +113,6 @@ else:
     endif;
 endif;
 
-$checkCreate = filter_input(INPUT_GET, 'create', FILTER_VALIDATE_BOOLEAN);
-if ($checkCreate && empty($cadastra)):
-    Notification("O post <b>{$post['post_title']}</b> foi cadastrado com sucesso no sistema!", ACCEPT);
-endif;
-
 if ($delGb):
     require_once('../_models/AdminPost.class.php');
     $DelGallery = new AdminPost;
@@ -123,9 +123,32 @@ if ($delGb):
 endif;
 ?>
 
+<?php if($post['post_category'] != 1): ?>
+    <ol class="breadcrumb icon-home icon-angle-right">
+        <li><a href="?exe=posts/posts">Páginas</a></li>
+        <li class="active">Atualizar Página</li>
+    </ol>
+<?php endif; ?>
+
 <div class="row m-b-40">
     <div class="col-xs-12 col-xl-6">
         <div class="row">
+            <?php if($post['post_category'] != 1): ?>
+            <div class="col-xs-12 col-xl-12">
+                <div class="form-group switches">
+                    <ul class="list-group">
+                        <li class="list-group-item">Destaque na home?
+                            <div class="animated-switch pull-right">
+                                <span style="display: none;"><?php if ($post['post_featured']) echo 'a' ?></span>
+                                <input data-id="<?= $postid; ?>" class="switch" id="featured-1" type="checkbox" <?php if ($post['post_featured']) echo 'checked' ?>>
+                                <label for="featured-1" class="label-success"></label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <?php endif; ?>
+
             <div class="col-xs-12 col-xl-12">
                 <!--
                 <h4 class="m-b-15">Compartilhar</h4>
@@ -134,7 +157,7 @@ endif;
 
                 <div class="upload-container">
                     <div class="actions">
-                        <a class="btn btn-primary m-r-10 m-b-10 file-btn m-t-20" id="img-cover">
+                        <a class="btn btn-primary m-r-10 m-b-10 file-btn m-t-20" id="img-cover" data-width="<?= $postid == '2' ? '600' : '1920'; ?>" data-height="<?= $postid == '2' ? '600' : '945'; ?>">
                             <span>Upload Imagem de capa</span>
                             <input type="file" id="upload" value="Choose a file" accept="image/*" />
                         </a>
@@ -147,14 +170,16 @@ endif;
                     <label style="display: block;">Imagem de Capa</label>
                     <?php
                     if (isset($post['post_cover']) && $post['post_cover'] != ''):
-                        echo '<img src="../tim.php?src=uploads/' . $post['post_cover'] . '&w=805&h398" class="img-cropped" id="imgcover"/>';
+                        echo '<img src="../tim.php?src=uploads/' . $post['post_cover'] . '&w=805&h398" class="img-cropped" id="imgcover" style="max-width: 100%;"/>';
                     endif;
                     ?>
 
-                    <?php if (isset($post['post_cover']) && $post['post_cover'] != ''): ?>
-                        <form method="post" action="?exe=posts/update&postid=<?= $postid; ?>">
-                            <input type="submit" class="btn btn-danger m-r-10 m-b-10 file-btn m-t-20" value="Remover Imagem" name="sendRemoveImg"/>
-                        </form>
+                    <?php if($postid != 1): ?>
+                        <?php if (isset($post['post_cover']) && $post['post_cover'] != ''): ?>
+                            <form method="post" action="?exe=posts/update&postid=<?= $postid; ?>">
+                                <input type="submit" class="btn btn-danger m-r-10 m-b-10 file-btn m-t-20" value="Remover Imagem" name="sendRemoveImg"/>
+                            </form>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </fieldset>
             </div>
@@ -163,6 +188,7 @@ endif;
         <form name="form-cad" method="post" action="?exe=posts/update&postid=<?= $postid; ?>">
             <input type="hidden" name="post_date" value="<?= date('d/m/Y H:i:s'); ?>" />
             <input type="hidden" name="post_cover" id="post_cover" value="<?php if (isset($post['post_cover'])) echo $post['post_cover']; ?>"/>
+            <input type="hidden" name="post_featured" value="<?php if (isset($post['post_featured'])) echo $post['post_featured']; ?>"/>
             <div class="row">
                 <div class="col-xs-12 col-xl-12">
                     <fieldset class="form-group m-b-20">
@@ -170,58 +196,73 @@ endif;
                         <textarea name="post_chamada" class="post_txt" class="form-control" rows="4"><?php if (isset($post['post_chamada'])) echo $post['post_chamada']; ?></textarea>
                     </fieldset>
 
+                    <?php if($postid != 1): ?>
                     <div class="form-group floating-labels">
                         <label for="post_title">Título</label>
                         <input id="post_title" autocomplete="off" type="text" name="post_title" value="<?php if (isset($post['post_title'])) echo $post['post_title']; ?>" required>
                         <p class="error-block"></p>
                     </div>
+                    <?php else: ?>
+                        <input type="hidden" name="post_title" value="nada"/>
+                    <?php endif; ?>
+
+                    <?php if($post['post_category'] == 1): ?>
+                        <input type="hidden" name="post_category" value="1"/>
+                    <?php endif; ?>
                 </div>
+
 
                 <div class="col-xs-12 col-xl-12">
-                    <fieldset class="form-group m-b-20">
-                        <label for="post_content">Conteúdo</label>
-                        <textarea name="post_content" id="post_content" class="form-control" rows="4"><?php if (isset($post['post_content'])) echo $post['post_content']; ?></textarea>
-                    </fieldset>
+                    <?php if($postid != 1): ?>
+                        <fieldset class="form-group m-b-20">
+                            <label for="post_content">Conteúdo</label>
+                            <textarea name="post_content" id="post_content" class="form-control" rows="4"><?php if (isset($post['post_content'])) echo $post['post_content']; ?></textarea>
+                        </fieldset>
+                    <?php endif; ?>
 
-                    <fieldset class="form-group">
-                        <label>Categoria</label>
-                        <select class="chosen-select" name="post_category" data-placeholder="Selecione a Categoria..." required>
-                            <option></option>
-                            <?php
-                                $readCat = new Read;
-                                $readCat->ExeRead("categories", "ORDER BY category_title ASC");
-                                if ($readCat->getRowCount() >= 1):
-                                    echo "<optgroup label='{$ses['category_title']}'>";
-                                        foreach ($readCat->getResult() as $cat):
-                                            echo "<option ";
-                                            if (isset($post['post_category']) && $post['post_category'] == $cat['category_id']):
-                                                echo "selected=\"selected\" ";
-                                            endif;
-                                            echo "value=\"{$cat['category_id']}\">{$cat['category_title']} </option>";
-                                        endforeach;
-                                    echo "</optgroup>";
-                                endif;
-                        ?>
-                        </select>
-                        <div class="help-block with-errors"></div>
-                    </fieldset>
+                    <?php if($post['post_category'] != 1): ?>
+                        <fieldset class="form-group">
+                            <label>Categoria</label>
+                            <select class="chosen-select" name="post_category" data-placeholder="Selecione a Categoria..." required>
+                                <option></option>
+                                <?php
+                                    $readCat = new Read;
+                                    $readCat->ExeRead("categories", "ORDER BY category_title ASC");
+                                    if ($readCat->getRowCount() >= 1):
+                                        echo "<optgroup label='{$ses['category_title']}'>";
+                                            foreach ($readCat->getResult() as $cat):
+                                                echo "<option ";
+                                                if (isset($post['post_category']) && $post['post_category'] == $cat['category_id']):
+                                                    echo "selected=\"selected\" ";
+                                                endif;
+                                                echo "value=\"{$cat['category_id']}\">{$cat['category_title']} </option>";
+                                            endforeach;
+                                        echo "</optgroup>";
+                                    endif;
+                            ?>
+                            </select>
+                            <div class="help-block with-errors"></div>
+                        </fieldset>
+                    <?php endif; ?>
                 </div>
+
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary m-r-10 m-b-10" value="Atualizar Página" name="SendPostForm"/>
-                <?php
-                $readForm = new Read;
-                $readForm->ExeRead("forms", "WHERE form_post = :post", "post={$postid}");
-                if(!$readForm->getRowCount()):
+                <input type="submit" class="btn btn-primary m-r-10 m-b-10" value="Salvar" name="SendPostForm"/>
+                <?php if($post['post_category'] != 1):
+                    $readForm = new Read;
+                    $readForm->ExeRead("forms", "WHERE form_post = :post", "post={$postid}");
+                    if(!$readForm->getRowCount()):
                 ?>
-                    <a class="btn btn-primary m-b-10 pull-right" href="?exe=forms/create&postid=<?= $postid; ?>">Criar Formulário</a>
+                        <a class="btn btn-primary m-b-10 pull-right" href="?exe=forms/create&postid=<?= $postid; ?>">Criar Formulário</a>
                 <?php else: ?>
-                    <a class="btn btn-primary m-b-10 pull-right" href="?exe=forms/update&formid=<?= $readForm->getResult()[0]['form_id']; ?>&postid=<?= $postid; ?>">Editar Formulário</a>
-                <?php endif; ?>
+                        <a class="btn btn-primary m-b-10 pull-right" href="?exe=forms/update&formid=<?= $readForm->getResult()[0]['form_id']; ?>&postid=<?= $postid; ?>">Editar Formulário</a>
+                <?php endif; endif; ?>
             </div>
         </form>
     </div>
+    <?php if($post['post_category'] != 1 || $post['post_id'] == 1): ?>
     <div class="col-xs-12 col-xl-6">
         <a class="btn btn-primary m-r-10 m-b-10 m-t-20" data-toggle="modal" data-target="#myModal">Cadastrar Nova Resposta</a>
         <?php
@@ -232,7 +273,7 @@ endif;
         <table class="table table-hover table-striped">
             <thead>
                 <tr>
-                    <th width="14%" data-sortable="true" data-sorted="true">Pergunta</th>
+                    <th data-sortable="true" data-sorted="true">Pergunta</th>
                     <th>Resposta</th>
                     <th width="100" data-sortable="false">Ações</th>
                 </tr>
@@ -262,10 +303,11 @@ endif;
         </table>
         <?php endif; ?>
     </div>
+    <?php endif;?>
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">        
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -276,7 +318,7 @@ endif;
                     <div class="col-xs-12 col-xl-12">
                         <form name="form-cad" method="post">
                             <input type="hidden" name="post_id" value="<?= $postid; ?>"/>
-                            <div class="row">                
+                            <div class="row">
                                 <div class="col-xs-12 col-xl-12">
                                     <div class="form-group floating-labels">
                                         <label for="bullet_title">Pergunta</label>
@@ -310,7 +352,7 @@ endif;
 </div>
 
 <div id="modalEdit" class="modal fade" role="dialog">
-    <div class="modal-dialog">        
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -321,7 +363,7 @@ endif;
                     <div class="col-xs-12 col-xl-12">
                         <form name="form-cad" method="post">
                             <input type="hidden" id="bulletid" name="bullet_id"/>
-                            <div class="row">                
+                            <div class="row">
                                 <div class="col-xs-12 col-xl-12">
                                     <div class="form-group floating-labels">
                                         <label for="bullet_title">Pergunta</label>
@@ -360,10 +402,12 @@ endif;
 <script src="bower_components/croppie/croppie.min.js"></script>
 <script src="bower_components/croppie/upload.js"></script>
 
+<?php include('includes/editor.php'); ?>
+
+<?php if($post['post_category'] != 1): ?>
+
 <link rel="stylesheet" href="<?= CDN; ?>/bower_components/dragula.js/dist/dragula.css" />
 <script src="<?= CDN; ?>/bower_components/dragula.js/dist/dragula.js"></script>
-
-<?php include('includes/editor.php'); ?>
 
 <script>
     var bullets = <?= json_encode($readBullets->getResult()); ?>
@@ -379,3 +423,4 @@ endif;
         $('#modalEdit').modal('show');
     }
 </script>
+<?php endif; ?>
