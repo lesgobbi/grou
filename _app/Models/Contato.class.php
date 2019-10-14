@@ -10,6 +10,7 @@ class Contato {
     private $Data;
     private $Error;
     private $Result;
+    private $Form;
 
     public function getResult() {
         return $this->Result;
@@ -19,8 +20,9 @@ class Contato {
         return $this->Error;
     }
 
-    public function Envia(array $Data) {
+    public function Envia(array $Data, $formid = null) {
         $this->Data = $Data;
+        $this->Form = $formid;
         $this->setData();
         $this->send();
     }
@@ -36,38 +38,34 @@ class Contato {
         $general = $read;
         $general->ExeRead('general');
         $sender = $general->getResult()[0]['title'];
-        
-        $wf = explode('form-', $this->Data['form-name']);
-        unset($this->Data['form-name']);
+
+
+        $this->Form = $this->Form ? $this->Form : 1;
 
         $destino = $read;
-        $destino->ExeRead("forms", "WHERE form_id = :id", "id=2");
+        $destino->ExeRead("forms", "WHERE form_id = :id", "id={$this->Form}");
 
         $Contato['DestinoEmail'] = $destino->getResult()[0]['form_destino'];
         // $Contato['DestinoEmail'] = 'jeanpreis@gmail.com';
 
-        if($wf[1] == '2'):
-            $Contato['Assunto'] = 'Novo contato (fale conosco) - '.CLIENT_NAME;
-        elseif($wf[1] == '3'):
-            $Contato['Assunto'] = 'Nova contato (mapa) - '.CLIENT_NAME;
+        if($this->Form != 1):
+            $Contato['Assunto'] = 'Nova cotação online - '.CLIENT_NAME;
+        else:
+            $Contato['Assunto'] = 'Novo contato - '.CLIENT_NAME;
         endif;
 
         $Contato['DestinoNome'] = 'Administrador';
         $Contato['Mensagem'] = '<h2>'. $Contato['Assunto'] .'</h2><p style="line-height: 1.5;">';
 
         foreach ($this->Data as $key => $value):
-            
-            if($key == 'quero' && $value == 1):
-                $value = 'Comprar';
-            elseif($key == 'quero' && $value == 2):
-                $value = 'Ser representante';
-            endif;
-            
             $Contato['Mensagem'] .= '<strong>'.ucfirst(str_replace('-', ' ', $key)).':</strong> ' . $value . '<br>';
-            
         endforeach;
-        
         $Contato['Mensagem'] .= '</p>';
+
+//        echo '<pre>';
+//        print_r($Contato);
+//        echo '</pre>';
+//        exit;
 
         $SendMail = new Email;
         $SendMail->Enviar($Contato, $sender);

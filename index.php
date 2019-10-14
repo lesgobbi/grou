@@ -82,12 +82,20 @@ $param = filter_input(INPUT_GET, 'param', FILTER_DEFAULT);
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://lesgobbi.github.io/cdn/js/fotorama.js"></script>
         <script src="https://lesgobbi.github.io/cdn/aos/aos.js"></script>
+        <script src="<?= CDN; ?>/js/jquery.validate.min.js"></script>
+        <script src="<?= CDN; ?>/js/messages_pt_BR.js"></script>
+        <script src="<?= CDN; ?>/js/jquery.mask.min.js"></script>
         <script src="<?= INCLUDE_PATH; ?>/assets/js/scripts.js"></script>
     </head>
 
     <body>
+        <input id="file-contact" type="hidden" value="<?= HOME ?>"/>
         <?php
         $read = new Read;
+
+        $readLogos = $read;
+        $readLogos->ExeRead('posts_gallery', "WHERE post_id = 20 ORDER BY gallery_order ASC");
+        $logos = $readLogos->getResult();
 
         if ($area):
             include(REQUIRE_PATH . DIRECTORY_SEPARATOR . 'internas.php');
@@ -99,13 +107,15 @@ $param = filter_input(INPUT_GET, 'param', FILTER_DEFAULT);
 
         <footer class="container-fluid">
             <div class="container">
-                <form action="">
-                    <div class="half-input">
-                        <input type="text" name="nome" placeholder="Nome" autocomplete="nome" />
-                        <input type="text" name="telefone" placeholder="Telefone" autocomplete="telefone" />
+                <form id="form-contato">
+                    <div class="half-input" style="position: relative;">
+                        <input type="text" name="nome" placeholder="Nome" autocomplete="nome" required/>
+                        <input type="text" name="telefone" class="telefone" placeholder="Telefone" autocomplete="telefone" required/>
                     </div>
 
-                    <input type="email" name="email" placeholder="E-mail" autocomplete="email" />
+                    <div style="position: relative;">
+                        <input type="email" name="email" placeholder="E-mail" autocomplete="email" required/>
+                    </div>
 
                     <input type="submit" name="sendContato" value="Solicitar contato" />
                 </form>
@@ -119,6 +129,16 @@ $param = filter_input(INPUT_GET, 'param', FILTER_DEFAULT);
                 </div>
             </div>
         </footer>
+
+        <div class="loader loader--style2" title="1">
+            <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                  <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                      <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                  </path>
+            </svg>
+        </div>
+
     </body>
 </html>
 <?php

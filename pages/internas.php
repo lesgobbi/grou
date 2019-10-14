@@ -22,6 +22,13 @@ $postid = $page['post_id'];
     <header>
         <div class="container">
             <a href="<?= HOME; ?>" class="logo"><img src="<?= HOME; ?>/assets/img/logo.png" /></a>
+
+            <div class="hamburguer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+
             <menu><?php include('includes/menu.php');?></menu>
         </div>
     </header>
@@ -76,8 +83,8 @@ if($readForm->getRowCount()):
 ?>
     <div class="container form-container">
         <h2>Cote on-line</h2>
-        <input id="file-contact" type="hidden" value="<?= HOME ?>"/>
-        <form id="form-contato" class="send-form">
+        <input id="formid" type="hidden" value="<?= $readForm->getResult()[0]['form_id']; ?>"/>
+        <form class="send-form">
             <?php
             $objects = unserialize($readForm->getResult()[0]['form_json']);
 
@@ -120,25 +127,19 @@ if($readForm->getRowCount()):
         <h4>As melhores seguradoras do mercado</h4>
 
         <div class="fotorama" data-width="100%" data-height="100" data-nav="false">
-            <div class="logos-container">
-                <img src="<?= HOME; ?>/assets/img/logo1.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo2.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo10.jpg"/>
-            </div>
-
-            <div class="logos-container">
-                <img src="<?= HOME; ?>/assets/img/logo4.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo5.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo6.jpg"/>
-            </div>
-
-            <div class="logos-container">
-                <img src="<?= HOME; ?>/assets/img/logo7.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo8.jpg"/>
-                <img src="<?= HOME; ?>/assets/img/logo9.jpg"/>
-            </div>
-
+            <?php
+            $l = 0;
+            foreach($logos as $logo):
+                $l = $l == 3 ? 0 : $l;
+                echo !$l ? '<div class="logos-container">' : '';
+                echo '<img src="'.HOME.'/tim.php?src='.HOME.'/uploads/'.$logo['gallery_image'].'&w=460&h=200"/>';
+                echo $l == 2 ? '</div>' : '';
+                $l++;
+            endforeach;
+            echo $l < 2 ? '</div>' : '';
+            ?>
         </div>
+
     </div>
 </section>
 

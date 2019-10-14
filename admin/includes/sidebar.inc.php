@@ -36,7 +36,7 @@
 
                         <li>
                             <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=1">
-                                <i class="fa fa-briefcase md-icon pull-left"></i>
+                                <i class="fa fa-home md-icon pull-left"></i>
                                 <span class="title">Padrão & FAQ</span>
                             </a>
                         </li>
@@ -50,7 +50,7 @@
 
                         <li>
                             <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=2">
-                                <i class="fa fa-briefcase md-icon pull-left"></i>
+                                <i class="fa fa-info-circle md-icon pull-left"></i>
                                 <span class="title">Dica do especialista</span>
                             </a>
                         </li>

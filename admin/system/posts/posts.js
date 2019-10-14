@@ -187,5 +187,62 @@
 
         });
 
+        if ($('#dropzonegallery').length) {
+            Dropzone.autoDiscover = false;
+            var myDropzone = new Dropzone("#dropzonegallery");
+            myDropzone.on("queuecomplete", function () {
+                var id = $('#dropzonegallery').attr('data-id');
+                window.location.href = '?exe=posts/update&postid=' + id;
+            });
+        }
+
+        if ($('.gallery-item').length) {
+            $('.gallery-item').on('click', function () {
+                toggleItemGallery(this, '#remove');
+            });
+
+            $('#selectall').on('click', function () {
+                selectAllItensGallery(this, '#clearall', '.gallery-item', '#remove');
+            });
+
+            $('#clearall').on('click', function () {
+                unSelectAllItensGallery(this, '#selectall', '.gallery-item', '#remove');
+            });
+        }
+
+        if ($('#board-images').length) {
+            var drake = dragula([document.getElementById('board-images')]);
+
+            drake.on('dragend', function (el) {
+                $.post("../_ajax/order.php", {
+                    table: 'posts_gallery',
+                    entity: 'gallery',
+                    parent_name: 'post_id',
+                    id: $(el).attr('data-id'),
+                    parent: $(el).attr('data-parent'),
+                    atual: $(el).attr('data-position'),
+                    new : $(el).index() + 1
+                }).done(function (data) {
+//                    alert(data);
+                    if (data === 'ok') {
+                        $('span', '#board').each(function () {
+                            $(this).attr('data-position', $(this).index() + 1);
+                        });
+                        $.notify("Posição atualizada.", {
+                            className: 'success',
+                            globalPosition: 'top right',
+                            autoHideDelay: 10000
+                        });
+                    } else {
+                        $.notify("Occoreu um erro! Posição não atualizada.", {
+                            className: 'error',
+                            globalPosition: 'top right',
+                            autoHideDelay: 10000
+                        });
+                    }
+                });
+            });
+        }
+
     });
 })();
