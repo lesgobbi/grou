@@ -172,7 +172,7 @@ h1 {
 @media  (max-width: 979px) {
   .ct-header header > div menu {
     position: fixed;
-    background: #193a6f;
+    background-color: rgba(1, 10, 43, 0.88);
     width: 100vw;
     height: calc(100vh - 92px);
     top: 92px;
@@ -184,11 +184,16 @@ h1 {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    transform: scale(1, 0);
+    transform: translateY(-40px);
     transform-origin: top;
+    opacity: 0;
+    visibility: hidden;
   }
   .ct-header header > div menu.visible {
-    transform: scale(1, 1);
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    background: rgba(25, 58, 111, 0.9);
   }
 }
 .ct-header header > div menu li {
@@ -229,7 +234,7 @@ h1 {
   position: absolute;
   height: 0;
   bottom: 0;
-  width: 2px;
+  width: 1px;
   background-color: #f54949;
   opacity: 0;
   left: 0;
@@ -265,9 +270,10 @@ h1 {
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
   top: 33px;
-  left: 2px;
+  left: -2px;
   padding: 0;
   transform: translateY(-5px);
+  border-top: 5px solid transparent;
 }
 @media  (max-width: 979px) {
   .ct-header header > div menu li ul {
@@ -280,15 +286,24 @@ h1 {
   display: block;
   width: 100%;
   padding: 5px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 2px;
+  border: none;
+  border-bottom: 1px solid transparent;
   white-space: nowrap;
-  background-color: #f54949;
+  background-color: rgba(255, 255, 255, 0.3);
   color: #fff!important;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.ct-header header > div menu li ul li a:after {
+  display: none;
 }
 .ct-header header > div menu li ul li a:hover {
-  background-color: #f21919;
+  border-bottom-color: #f54949;
 }
 @media  (max-width: 979px) {
   .ct-header header > div menu li ul li a {
@@ -467,12 +482,13 @@ h1 {
 }
 .solucoes .container-fluid .col {
   border: 1px solid #dedede;
-  padding: 26px;
+  padding: 26px 26px 52px;
   margin: 0 6px;
   -webkit-transition: all 0.1s ease;
   -moz-transition: all 0.1s ease;
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
+  position: relative;
 }
 @media  (max-width: 979px) {
   .solucoes .container-fluid .col {
@@ -525,7 +541,8 @@ h1 {
   background-color: #f54949;
 }
 .solucoes .container-fluid .col a {
-  margin-top: 35px;
+  position: absolute;
+  bottom: 26px;
   border-bottom: 1px solid #f54949;
 }
 .solucoes .container-fluid .col a:hover {
