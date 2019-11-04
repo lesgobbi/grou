@@ -1,8 +1,6 @@
 $(document).ready(function() {
     AOS.init();
 
-    var scroll = $(window).scrollTop();
-
     if ($('.parallax').length) {
         var top = $('.parallax').offset().top;
         var height = $('.parallax').height();
@@ -15,11 +13,7 @@ $(document).ready(function() {
         }, 1000);
     });
 
-    if (30 >= scroll) {
-        $('header').removeClass('scrolled');
-    } else {
-        $('header').addClass('scrolled');
-    }
+    menuScroll($(window).scrollTop());
 
     var maskBehavior = function(val) {
         return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
@@ -80,17 +74,27 @@ $(document).ready(function() {
 });
 
 $(window).scroll(function() {
-    var scroll = $(window).scrollTop();
-
     if ($('.parallax').length) {
         var top = $('.parallax').offset().top;
         var height = $('.parallax').height();
         $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');
     }
 
+    menuScroll($(window).scrollTop());
+});
+
+function menuScroll(scroll){
+    var wh = $(window).height() - ($('header').outerHeight() + $('menu ul').outerHeight() - 16);
+
     if (30 >= scroll) {
         $('header').removeClass('scrolled');
     } else {
         $('header').addClass('scrolled');
+
+        if(scroll >= wh){
+            $('header').addClass('alt');
+        }else{
+            $('header').removeClass('alt');
+        }
     }
-});
+}

@@ -2,10 +2,15 @@
 date_default_timezone_set("America/Sao_Paulo");
 // CONFIGRAÇÕES DO BANCO ####################
 
-define('HOST', 'localhost');
-define('USER', 'root');
-define('PASS', 'root');
-define('DBSA', 'grou');
+//define('HOST', 'localhost');
+//define('USER', 'root');
+//define('PASS', 'root');
+//define('DBSA', 'grou');
+
+define('HOST', '108.167.188.182');
+define('USER', 'focoi382_grou');
+define('PASS', 'Si=MTa;m]![^');
+define('DBSA', 'focoi382_grou');
 
 // CONFIGRAÇÕES DE EMAIL ####################
 define('MAILUSER', 'contato@jeanreis.com');
@@ -16,6 +21,8 @@ define('MAILHOST', 'br166.hostgator.com.br');
 // DEFINE IDENTIDADE DO SITE ################
 define('CLIENT_NAME', 'Grou');
 define('UPLOAD_ROOT', $_SERVER['DOCUMENT_ROOT'].'/grou');
+//define('UPLOAD_ROOT', $_SERVER['DOCUMENT_ROOT'].'/clientes/grou');
+//define('UPLOAD_ROOT', $_SERVER['DOCUMENT_ROOT']);
 
 // DEFINE O TIPO DE NAVEGAÇÃO DO SITE ################
 // define('NAVIGATION', 'S');

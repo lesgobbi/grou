@@ -60,7 +60,7 @@ h1 {
   display: flex;
   flex-flow: column;
   position: relative;
-  padding-top: 165px;
+  padding-top: 130px;
 }
 @media  (max-width: 979px) {
   .ct-header {
@@ -91,7 +91,7 @@ h1 {
 }
 .ct-header header {
   background-color: rgba(1, 10, 43, 0.88);
-  padding: 57px;
+  padding: 39px;
   position: fixed;
   width: 100%;
   z-index: 99;
@@ -122,6 +122,9 @@ h1 {
     height: calc(100vh - 86px);
     top: 86px;
   }
+}
+.ct-header header.scrolled.alt menu ul a {
+  background-color: rgba(25, 58, 111, 0.85);
 }
 .ct-header header > div {
   display: flex;
@@ -168,6 +171,11 @@ h1 {
   width: 754px;
   margin: 0;
   padding: 0;
+}
+@media (max-width: 1200px) {
+  .ct-header header > div menu {
+    width: 650px;
+  }
 }
 @media  (max-width: 979px) {
   .ct-header header > div menu {
@@ -217,6 +225,11 @@ h1 {
   position: relative;
   cursor: pointer;
   float: left;
+}
+@media (max-width: 1200px) {
+  .ct-header header > div menu li a {
+    font-size: 18px;
+  }
 }
 @media  (max-width: 979px) {
   .ct-header header > div menu li a {

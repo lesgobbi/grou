@@ -36,12 +36,12 @@ if ($action):
 endif;
 
 $readPosts = new Read;
-$readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER BY post_date DESC");
+$readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER BY post_title ASC");
 ?>
 
 <div class="row m-b-20">
     <div class="col-xs-12">
-        <table class="table table-hover table-striped">
+        <table class="table table-hover table-striped" id="itens-table">
             <thead>
                 <tr>
                     <th width="50" data-sortable="false" data-sorted="false" id="unsort"></th>
@@ -63,8 +63,8 @@ $readPosts->ExeRead("posts", "WHERE post_category = 2 OR post_category = 3 ORDER
                             <td style="vertical-align: middle;"><?= Check::Words(strip_tags($post_content), 40); ?></td>
                             <td style="vertical-align: middle;"><?= $post_featured ? 'sim' : 'não'; ?></td>
                             <td style="vertical-align: middle; min-width: 80px;">
-                                <a href="painel.php?exe=posts/update&postid=<?= $post_id; ?>" class="btn btn-primary btn-circle m-r-5" title="Editar" data-toggle="tooltip" data-placement="top" style="height: 28px; "><i class="fa fa-edit"></i></a>
-                                <a href="painel.php?exe=posts/posts&post=<?= $post_id; ?>&action=delete" class="btn btn-danger btn-circle m-r-5" title="Remover" data-toggle="tooltip" data-placement="top" style="height: 28px;"><i class="fa fa-trash"></i></a>
+                                <a href="painel.php?exe=posts/update&postid=<?= $post_id; ?>" class="btn btn-primary btn-circle m-r-5" title="Editar" data-toggle="tooltip" data-placement="top" style="box-sizing: border-box;"><i class="fa fa-edit"></i></a>
+                                <a href="painel.php?exe=posts/posts&post=<?= $post_id; ?>&action=delete" class="btn btn-danger btn-circle m-r-5" title="Remover" data-toggle="tooltip" data-placement="top" style="box-sizing: border-box;"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
 

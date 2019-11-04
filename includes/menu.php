@@ -1,5 +1,5 @@
 <li><a href="<?= HOME; ?>/sobre/">Sobre</a></li>
-<li><a href="#">Blog</a></li>
+<li><a href="http://groucorretora.com.br/blog/" target="_blank">Blog</a></li>
 <?php
 $readMenu = new Read;
 $readMenu->FullRead("SELECT post_title, post_name, post_category from posts WHERE post_category = 2 ORDER BY post_title ASC");

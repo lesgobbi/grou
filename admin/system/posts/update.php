@@ -263,7 +263,7 @@ endif;
                 </div>
             </form>
         </div>
-        <?php if($post['post_category'] != 1 || $post['post_id'] == 1): ?>
+        <?php if($post['post_category'] != 1 || $postid == 1): ?>
         <div class="col-xs-12 col-xl-6">
             <a class="btn btn-primary m-r-10 m-b-10 m-t-20" data-toggle="modal" data-target="#myModal">Cadastrar Nova Resposta</a>
             <?php

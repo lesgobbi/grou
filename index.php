@@ -62,6 +62,7 @@ $param = filter_input(INPUT_GET, 'param', FILTER_DEFAULT);
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="<?= CDN; ?>/css/fotorama.css">
         <link rel="stylesheet" href="<?= CDN; ?>/aos/aos.css">
+        <link rel="stylesheet" href="<?= CDN; ?>/bower_components/editor/css/froala_style.css">
         <link rel="stylesheet" href="<?= INCLUDE_PATH; ?>/assets/css/style.css">
 
         <link rel="apple-touch-icon" href="favicon.png">

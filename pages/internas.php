@@ -41,14 +41,14 @@ $postid = $page['post_id'];
 
 <section class="container internas">
     <h1><?= $page['post_title']; ?></h1>
-    <div class="content"><?= $page['post_content']; ?></div>
+    <div class="content fr-element fr-view"><?= $page['post_content']; ?></div>
 </section>
 
 <?php
 $readFaq = $read;
-$readFaq->ExeRead('bullets', "WHERE post_id = :post ORDER BY bullet_order DESC", "post={$postid}");
+$readFaq->ExeRead('bullets', "WHERE post_id = :post ORDER BY bullet_order ASC", "post={$postid}");
 if(!$readFaq->getRowCount()):
-    $readFaq->ExeRead('bullets', "WHERE post_id = 1  ORDER BY bullet_order DESC");
+    $readFaq->ExeRead('bullets', "WHERE post_id = 1 ORDER BY bullet_order ASC");
 endif;
 $faq = $readFaq->getResult();
 $c = 0;
