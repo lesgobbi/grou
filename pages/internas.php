@@ -108,6 +108,17 @@ if($readForm->getRowCount()):
                     case 'textarea':
                         echo "<textarea {$validate} placeholder=\"{$form->name}\" name=\"".Check::Name($form->name)."\" ></textarea>";
                         break;
+                    case 'radio':
+                        echo '<span class="title-field">'.$form->name.'</span>';
+
+                        foreach($form->options as $options):
+                            echo '<label class="radio-field">';
+                                echo '<input type="radio" name="'.Check::Name($form->name).'" value="'.$options->option.'"/>';
+                                echo '<span>'.$options->option.'</span>';
+                            echo '</label>';
+                        endforeach;
+
+                        break;
                 endswitch;
                 echo '</div>';
             endforeach;

@@ -447,8 +447,8 @@ endif;
 <link rel="stylesheet" href="<?= CDN; ?>/bower_components/dragula.js/dist/dragula.css" />
 <script src="<?= CDN; ?>/bower_components/dragula.js/dist/dragula.js"></script>
 
-<link rel="stylesheet" href="http://focoimg.com.br/src/bower_components/fotorama/fotorama.css" />
-<script src="http://focoimg.com.br/src/bower_components/fotorama/fotorama.js"></script>
+<link rel="stylesheet" href="<?= CDN; ?>/bower_components/fotorama/fotorama.css" />
+<script src="<?= CDN; ?>/bower_components/fotorama/fotorama.js"></script>
 
 <?php if($post['post_category'] != 1): ?>
 

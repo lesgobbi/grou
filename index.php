@@ -6,6 +6,7 @@ $Link = new Link;
 $readGeneral = new Read;
 $readGeneral->ExeRead('general', "WHERE id = :id", "id=1");
 $general = $readGeneral->getResult()[0];
+
 extract($general);
 
 $area = filter_input(INPUT_GET, 'url', FILTER_DEFAULT);
@@ -126,7 +127,8 @@ $param = filter_input(INPUT_GET, 'param', FILTER_DEFAULT);
                         <img src="<?= HOME; ?>/assets/img/wa.png" /> 11 98953 9654
                     </a>
                     <a target="_blank" href="<?= $social_fb; ?>"><img src="<?= HOME; ?>/assets/img/fb.png" /></a>
-                    <a target="_blank" href="<?= $social_li; ?>"><img src="<?= HOME; ?>/assets/img/it.png" /></a>
+                    <a target="_blank" href="<?= $social_ig; ?>"><img src="<?= HOME; ?>/assets/img/it.png" /></a>
+                    <a target="_blank" href="<?= $social_li; ?>"><img src="<?= HOME; ?>/assets/img/li.png" /></a>
                 </div>
             </div>
         </footer>

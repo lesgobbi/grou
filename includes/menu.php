@@ -32,5 +32,6 @@ if($readMenu->getRowCount()):
 <li><a class="contato" href="#">Contato</a></li>
 <li>
     <a class="social" target="_blank" href="<?= $social_fb; ?>"><img src="<?= HOME; ?>/assets/img/fb.png" /></a>
-    <a class="social" target="_blank" href="<?= $social_li; ?>"><img src="<?= HOME; ?>/assets/img/it.png" /></a>
+    <a class="social" target="_blank" href="<?= $social_ig; ?>"><img src="<?= HOME; ?>/assets/img/it.png" /></a>
+    <a class="social" target="_blank" href="<?= $social_li; ?>"><img src="<?= HOME; ?>/assets/img/li.png" /></a>
 </li>

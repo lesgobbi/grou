@@ -39,13 +39,14 @@ class Contato {
         $general->ExeRead('general');
         $sender = $general->getResult()[0]['title'];
 
+        if($this->Form):
+            $destino = $read;
+            $destino->ExeRead("forms", "WHERE form_id = :id", "id={$this->Form}");
+            $Contato['DestinoEmail'] = $destino->getResult()[0]['form_destino'];
+        else:
+            $Contato['DestinoEmail'] = $general->getResult()[0]['email'];
+        endif;
 
-        $this->Form = $this->Form ? $this->Form : 1;
-
-        $destino = $read;
-        $destino->ExeRead("forms", "WHERE form_id = :id", "id={$this->Form}");
-
-        $Contato['DestinoEmail'] = $destino->getResult()[0]['form_destino'];
         // $Contato['DestinoEmail'] = 'jeanpreis@gmail.com';
 
         if($this->Form != 1):

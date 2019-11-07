@@ -254,13 +254,17 @@ h1{
 						img{
 							width: 25px;
 							.transition;
-						}
 
-						&:last-child{
-							img{
-								margin-left: 15px;
+							@media @mobile{
+								margin: 0 8px;
 							}
 						}
+
+						//&:last-child{
+						//	img{
+						//		margin-left: 15px;
+						//	}
+						//}
                     }
                     
                     &:last-child{
@@ -449,13 +453,19 @@ h1{
 	background: url(../img/bg-bullets.jpg) no-repeat;
 	background-size: cover;
 
+	h2{
+		color: #fff;
+		padding-top: 80px;
+		margin-bottom: 20px;
+	}
+
 	@media @mobile{
 		overflow: hidden;
 	}
 
 	.container {
 		display: flex;
-		padding-top: 150px;
+		padding-top: 100px;
 		padding-bottom: 110px;
 
 		@media @mobile{
@@ -478,14 +488,14 @@ h1{
 
 			&:before{
 				content: '';
-				width: 166px;
-				height: 166px;
+				width: 165px;
+				height: 165px;
 				position: absolute;
 				top: 0;
 				left: 50%;
 				transform: translateX(-50%);
 				background: url(../img/icon-bullets.png) no-repeat;
-				background-size: auto 166px;
+				background-size: auto 100%;
 			}
 
 			&:nth-child(1){
@@ -851,6 +861,10 @@ footer{
 				margin-right: 20px;
 				font-size: 24px;
 
+				@media @mobile{
+					font-size: 18px;
+				}
+
 				&:hover{
 					img{
 						transform: scale(1.6);
@@ -867,6 +881,10 @@ footer{
 				width: 25px;
 				margin-left: 25px;
 				.transition;
+
+				@media @mobile{
+					margin-left: 10px;
+				}
 			}
 
 			&:hover{
@@ -1112,8 +1130,9 @@ footer{
 
 		.field-container{
 			width: 100%;
+			float: left;
 
-			input, textarea{
+			input:not([type="radio"]), textarea{
 				width: 100%;
 				background: none;
 				border: none;
@@ -1124,6 +1143,39 @@ footer{
 				padding: 10px 12px 5px;
 				color: @default;
 				resize: none;
+			}
+
+			.title-field{
+				float: left;
+				font-size: 22px;
+				color: #1b3c71;
+				margin-left: 15px;
+				font-style: italic;
+				margin-top: 15px;
+
+				@media @mobile{
+					width: 100%;
+				}
+
+			}
+
+			.radio-field{
+				float: left;
+				margin: 21px 0 0 15px;
+
+				@media @mobile{
+					width: 100%;
+				}
+
+				span{
+					margin-left: 4px;
+				}
+			}
+
+			&:last-of-type{
+				.radio-field {
+					margin-bottom: 30px;
+				}
 			}
 		}
 

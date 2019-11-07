@@ -2,9 +2,7 @@ $(document).ready(function() {
     AOS.init();
 
     if ($('.parallax').length) {
-        var top = $('.parallax').offset().top;
-        var height = $('.parallax').height();
-        $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');
+        parallax($(window).scrollTop());
     }
 
     $('.contato').on('click', function() {
@@ -74,14 +72,18 @@ $(document).ready(function() {
 });
 
 $(window).scroll(function() {
+    var scroll = $(window).scrollTop();
     if ($('.parallax').length) {
-        var top = $('.parallax').offset().top;
-        var height = $('.parallax').height();
-        $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');
+        parallax(scroll);
     }
-
-    menuScroll($(window).scrollTop());
+    menuScroll(scroll);
 });
+
+function parallax(scroll) {
+    var top = $('.parallax').offset().top;
+    var height = $('.parallax').height();
+    $('.parallax').css('background-position', '0px -' + ((height + top - scroll) / 5) + 'px');
+}
 
 function menuScroll(scroll){
     var wh = $(window).height() - ($('header').outerHeight() + $('menu ul').outerHeight() - 16);

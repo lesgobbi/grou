@@ -51,10 +51,11 @@
 </section>
 
 <section class="container-fluid ct-bullets">
+    <h2>Consultoria em:</h2>
     <div class="container">
-        <span class="col-4" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850">Vida<br>Empresarial</span>
-        <span class="col-4" data-aos="fade-top" data-aos-anchor-placement="top" data-aos-duration="850">Seguro<br>Saúde</span>
-        <span class="col-4" data-aos="fade-left" data-aos-anchor-placement="top" data-aos-duration="850">Consórcio<br>Imobiliário</span>
+        <span class="col-4" data-aos="fade-right" data-aos-anchor-placement="top" data-aos-duration="850">Benefícios</span>
+        <span class="col-4" data-aos="fade-top" data-aos-anchor-placement="top" data-aos-duration="850">Seguros</span>
+        <span class="col-4" data-aos="fade-left" data-aos-anchor-placement="top" data-aos-duration="850">Previdência e Patrimônio</span>
     </div>
 </section>
 
@@ -81,7 +82,7 @@ if($readDestaques->getRowCount()):
 
 <?php
 $readClipping = $read;
-$readClipping->ExeRead('posts', "WHERE post_category = 4 ORDER BY post_id DESC");
+$readClipping->ExeRead('posts', "WHERE post_category = 4 ORDER BY post_id DESC LIMIT 3");
 if($readClipping->getRowCount()):
 $clippings = $readClipping->getResult();
 ?>

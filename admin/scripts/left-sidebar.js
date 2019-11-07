@@ -39,36 +39,8 @@
             id = 'users';
             toggleSection(id);
             return false;
-        } else if (url.match(/exe=arquitetos/gi)) {
-            id = 'arquitetos';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=banners/gi)) {
-            id = 'banners';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=noticias/gi)) {
-            id = 'noticias';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=nossas-marcas/gi)) {
-            id = 'nossas-marcas';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=categorias/gi)) {
-            id = 'categorias';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=produto/gi)) {
-            id = 'produto';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=referencias/gi)) {
-            id = 'referencias';
-            toggleSection(id);
-            return false;
-        } else if (url.match(/exe=area-restrita/gi)) {
-            id = 'area-restrita';
+        } else if (url.match(/exe=clipping/gi)) {
+            id = 'clipping';
             toggleSection(id);
             return false;
         }

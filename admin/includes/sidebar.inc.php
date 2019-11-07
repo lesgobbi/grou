@@ -14,7 +14,7 @@
                         </li>
 
                         <li>
-                            <?php $item = 'paginas'; ?>
+                            <?php $item = 'posts'; ?>
                             <a class="sideline" data-id="<?=$item;?>" data-click="toggle-section">
                                 <i class="pull-right fa fa-caret-down icon-<?=$item;?>"></i> 
                                 <i class="fa md-icon fa-image pull-left"></i>
@@ -33,11 +33,32 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li>
+                            <?php $item = 'clipping'; ?>
+                            <a class="sideline" data-id="<?=$item;?>" data-click="toggle-section">
+                                <i class="pull-right fa fa-caret-down icon-<?=$item;?>"></i> 
+                                <i class="fa md-icon fa-newspaper-o pull-left"></i>
+                                <span class="title">Clipping</span>
+                            </a>
+                            <ul class="list-unstyled section-<?=$item;?> l2">
+                                <li>
+                                    <a class="sideline" href="?exe=clipping/clipping">
+                                        <span class="title">Listar Clipping</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="sideline" href="?exe=clipping/create">
+                                        <span class="title">Novo Clipping</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li>
-                            <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=1">
-                                <i class="fa fa-home md-icon pull-left"></i>
-                                <span class="title">Padrão & FAQ</span>
+                            <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=20">
+                                <i class="fa fa-handshake-o md-icon pull-left"></i>
+                                <span class="title">Logos Seguradoras</span>
                             </a>
                         </li>
 
@@ -52,6 +73,13 @@
                             <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=2">
                                 <i class="fa fa-info-circle md-icon pull-left"></i>
                                 <span class="title">Dica do especialista</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="sideline" href="<?= HOME; ?>/admin/painel.php?exe=posts/update&postid=1">
+                                <i class="fa fa-home md-icon pull-left"></i>
+                                <span class="title">Padrão & FAQ</span>
                             </a>
                         </li>
 

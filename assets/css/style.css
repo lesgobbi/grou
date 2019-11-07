@@ -268,8 +268,10 @@ h1 {
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
 }
-.ct-header header > div menu li a:last-child img {
-  margin-left: 15px;
+@media  (max-width: 979px) {
+  .ct-header header > div menu li a img {
+    margin: 0 8px;
+  }
 }
 .ct-header header > div menu li:last-child a:hover:after {
   display: none;
@@ -423,6 +425,11 @@ h1 {
   background: url(../img/bg-bullets.jpg) no-repeat;
   background-size: cover;
 }
+.ct-bullets h2 {
+  color: #fff;
+  padding-top: 80px;
+  margin-bottom: 20px;
+}
 @media  (max-width: 979px) {
   .ct-bullets {
     overflow: hidden;
@@ -430,7 +437,7 @@ h1 {
 }
 .ct-bullets .container {
   display: flex;
-  padding-top: 150px;
+  padding-top: 100px;
   padding-bottom: 110px;
 }
 @media  (max-width: 979px) {
@@ -457,14 +464,14 @@ h1 {
 }
 .ct-bullets .container span:before {
   content: '';
-  width: 166px;
-  height: 166px;
+  width: 165px;
+  height: 165px;
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   background: url(../img/icon-bullets.png) no-repeat;
-  background-size: auto 166px;
+  background-size: auto 100%;
 }
 .ct-bullets .container span:nth-child(1):before {
   width: 165px;
@@ -804,6 +811,11 @@ footer .buttons-bottom a.wa {
   margin-right: 20px;
   font-size: 24px;
 }
+@media  (max-width: 979px) {
+  footer .buttons-bottom a.wa {
+    font-size: 18px;
+  }
+}
 footer .buttons-bottom a.wa:hover img {
   transform: scale(1.6);
 }
@@ -818,6 +830,11 @@ footer .buttons-bottom a img {
   -moz-transition: all 0.1s ease;
   -o-transition: all 0.1s ease;
   transition: all 0.1s ease;
+}
+@media  (max-width: 979px) {
+  footer .buttons-bottom a img {
+    margin-left: 10px;
+  }
 }
 footer .buttons-bottom a:hover img {
   transform: scale(1.2);
@@ -1036,8 +1053,9 @@ footer .buttons-bottom a:hover img {
 }
 .form-container form .field-container {
   width: 100%;
+  float: left;
 }
-.form-container form .field-container input,
+.form-container form .field-container input:not([type="radio"]),
 .form-container form .field-container textarea {
   width: 100%;
   background: none;
@@ -1049,6 +1067,34 @@ footer .buttons-bottom a:hover img {
   padding: 10px 12px 5px;
   color: #193a6f;
   resize: none;
+}
+.form-container form .field-container .title-field {
+  float: left;
+  font-size: 22px;
+  color: #1b3c71;
+  margin-left: 15px;
+  font-style: italic;
+  margin-top: 15px;
+}
+@media  (max-width: 979px) {
+  .form-container form .field-container .title-field {
+    width: 100%;
+  }
+}
+.form-container form .field-container .radio-field {
+  float: left;
+  margin: 21px 0 0 15px;
+}
+@media  (max-width: 979px) {
+  .form-container form .field-container .radio-field {
+    width: 100%;
+  }
+}
+.form-container form .field-container .radio-field span {
+  margin-left: 4px;
+}
+.form-container form .field-container:last-of-type .radio-field {
+  margin-bottom: 30px;
 }
 .form-container form label[for="submit"] {
   background: #193a6f;
